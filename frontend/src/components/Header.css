@@ -1,0 +1,40 @@
+.header {
+  color: #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: .15rem #ddd solid;
+}
+
+.logo {
+  margin-left: 1.5rem;
+}
+
+.logo-title {
+  font-size: 1.5rem;
+}
+
+.navlist {
+  font-size: 1.25rem;
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  /* gap: 1rem; */
+}
+
+.link {
+  padding: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+}
+
+.navlist a {
+  color: #222;
+  text-decoration: none;
+}
+
+.list-item:hover {
+  background-color: #ddd;
+}
