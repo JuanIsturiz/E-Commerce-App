@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import ProductList from "../components/ProductList";
 import Sidebar from "../components/Sidebar";
 import { getItems } from "../features/cart/cartSlice";
-import "./UserDashboard.css";
+import "./Products.css";
 
-const UserDashboard = () => {
+const Products = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -23,10 +23,10 @@ const UserDashboard = () => {
   }, [user, cartId, navigate, dispatch]);
 
   return (
-    <div className="dashboard">
+    <div className="products-section">
       <div className="main">
         <section className="heading">
-          <h1>Dashboard</h1>
+          <h1>Products</h1>
         </section>
         <section className="content">
           <ProductList />
@@ -37,4 +37,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default Products;

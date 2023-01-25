@@ -57,7 +57,6 @@ exports.registerUser = asyncHandler(async (req, res) => {
       last: user.last_name,
       email: user.email,
     });
-    res.redirect("/login");
   } catch (err) {
     res.status(500);
     throw new Error(err.message);

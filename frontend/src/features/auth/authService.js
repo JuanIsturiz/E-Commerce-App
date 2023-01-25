@@ -20,6 +20,7 @@ const loginUser = async (userData) => {
 
 const logoutUser = async () => {
   localStorage.removeItem("user");
+  localStorage.removeItem("cartId");
   await axios.get(`${API_URL}/logout`);
 };
 

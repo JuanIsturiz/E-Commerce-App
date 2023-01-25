@@ -12,6 +12,6 @@
     "pg": "^8.8.0"
   },
   "scripts": {
-    "dev": "nodemon server.js"
+    "watch": "nodemon server.js"
   }
 }

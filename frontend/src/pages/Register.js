@@ -3,6 +3,7 @@ import { FaSignInAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { registerUser, reset } from "../features/auth/authSlice";
+import { getCart } from "../features/cart/cartSlice";
 import "./Register.css";
 
 const Register = () => {
@@ -24,7 +25,7 @@ const Register = () => {
 
   useEffect(() => {
     if (isSuccess || user) {
-      navigate("/users/dashboard");
+      navigate("/products");
     }
     dispatch(reset());
   }, [isSuccess, user, navigate, dispatch]);
@@ -32,9 +33,10 @@ const Register = () => {
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(registerUser(formData));
+    const userRegistered = await dispatch(registerUser(formData));
+    dispatch(getCart(userRegistered.payload.id));
   };
 
   if (isLoading) {

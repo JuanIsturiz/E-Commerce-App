@@ -1,5 +1,6 @@
 .sidebar {
   background-color: #ddd;
+  width: 9rem;
   height: 90vh;
   position: fixed;
   right: 0;
@@ -7,7 +8,7 @@
 
 .sidebar h3 {
   padding: .5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
 }
 
 .sidebar span {
@@ -23,11 +24,12 @@
 
 .side {
   cursor: pointer;
-  padding: 1rem 2.5rem;
+  padding: 1rem 2rem;
   font-size: 4rem;
 }
 
 #cart {
+  padding: 1.5rem 1.65rem;
   display: flex;
 }
 

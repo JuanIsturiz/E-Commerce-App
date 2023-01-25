@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, reset } from "../features/products/productsSlice";
+import { getProducts } from "../features/products/productsSlice";
 import Product from "./Product";
 import "./ProductList.css";
 
@@ -14,7 +14,6 @@ const ProductList = () => {
       return;
     }
     dispatch(getProducts());
-    // dispatch(reset());
   }, [isSuccess, products, dispatch]);
 
   if (isLoading) {
@@ -24,7 +23,6 @@ const ProductList = () => {
   return (
     <div className="products">
       {isError && <h3 style={{ color: "red" }}>{message}</h3>}
-      <h3>Products</h3>
       <div className="product-list">
         {products.length &&
           products.map((p) => <Product key={p.id} info={p} />)}

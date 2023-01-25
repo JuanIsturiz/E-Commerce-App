@@ -1,7 +1,9 @@
+const { session } = require("passport");
 const passport = require("passport");
 
 exports.loginSuccess = (req, res) => {
   const { user } = req;
+  session.user = user;
   res.json({
     id: user.id,
     first: user.first_name,

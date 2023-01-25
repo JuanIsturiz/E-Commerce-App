@@ -3,6 +3,7 @@ import { FaUser } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser, reset } from "../features/auth/authSlice";
+import { getCart } from "../features/cart/cartSlice";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccess || user) {
-      navigate("/users/dashboard");
+      navigate("/products");
     }
     dispatch(reset());
   }, [isSuccess, user, navigate, dispatch]);
@@ -28,9 +29,10 @@ const Login = () => {
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginUser(formData));
+    const userLog = await dispatch(loginUser(formData));
+    dispatch(getCart(userLog.payload.id));
   };
 
   if (isLoading) {

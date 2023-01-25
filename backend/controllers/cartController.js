@@ -15,14 +15,14 @@ exports.getCarts = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get cart data by id
-// @route   GET /cart/:cartId
+// @route   GET /cart/:userId
 // @access  Private
 exports.getCartById = asyncHandler(async (req, res) => {
-  const { cartId } = req.params;
+  const { userId } = req.params;
   try {
     const cart = await pool.query(
-      "SELECT * FROM cart_items WHERE cart_id = $1",
-      [cartId]
+      "SELECT * FROM cart_items WHERE user_id = $1",
+      [userId]
     );
     res.send(cart.rows);
   } catch (err) {
@@ -36,7 +36,7 @@ exports.getCartById = asyncHandler(async (req, res) => {
 // @access  Private
 exports.createCart = asyncHandler(async (req, res) => {
   const created = new Date().toISOString().split("T")[0];
-  const userId = req.user.id;
+  const { userId } = req.body;
   try {
     const check = await pool.query(
       "SELECT * FROM cart_items WHERE user_id = $1",
@@ -51,7 +51,7 @@ exports.createCart = asyncHandler(async (req, res) => {
       "INSERT INTO carts (created) VALUES ($1) RETURNING *",
       [created]
     );
-    res.send(`new cart created with ID: ${cart.rows[0].id}`);
+    res.json({ id: cart.rows[0].id });
   } catch (err) {
     res.status(500);
     throw new Error(err.message);
@@ -59,11 +59,11 @@ exports.createCart = asyncHandler(async (req, res) => {
 });
 
 // @desc    Add new item to cart
-// @route   POST /cart/:cartId/users/:userId
+// @route   POST /cart/:cartId/user/:userId
 // @access  Private
 exports.addItemToCart = asyncHandler(async (req, res) => {
   const { cartId, userId } = req.params;
-  const { quantity, product_id } = req.body;
+  const { quantity, productId } = req.body;
   const modified = new Date().toISOString().split("T")[0];
 
   try {
@@ -74,7 +74,7 @@ exports.addItemToCart = asyncHandler(async (req, res) => {
 
     const newItem = await pool.query(
       "INSERT INTO cart_items (quantity, modified, user_id, product_id, cart_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [quantity, modified, userId, product_id, cartId]
+      [quantity, modified, userId, productId, cartId]
     );
     res.send(newItem.rows[0]);
   } catch (err) {
@@ -113,6 +113,23 @@ exports.removeItemFromCart = asyncHandler(async (req, res) => {
       [product_id]
     );
     res.send(`Succesfully deleted ${itemName.rows[0]} from cart!`);
+  } catch (err) {
+    res.status(500);
+    throw new Error(err.message);
+  }
+});
+
+// @desc    Get products from given Cart ID
+// @route   GET /cart/:cartId/products
+// @access  Private
+exports.getProductsByCart = asyncHandler(async (req, res) => {
+  const { cartId } = req.params;
+  try {
+    const products = await pool.query(
+      "SELECT products.id AS product_id, products.name AS product_name, cart_items.quantity AS quantity FROM products, cart_items WHERE products.id = cart_items.product_id AND cart_items.cart_id = $1 ORDER BY products.id",
+      [cartId]
+    );
+    res.json({ products: products.rows });
   } catch (err) {
     res.status(500);
     throw new Error(err.message);
