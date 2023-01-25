@@ -2,3 +2,7 @@
   margin-left: 3.5rem;
   display: flex;
 }
+
+.item-list {
+  width: 40rem;
+}

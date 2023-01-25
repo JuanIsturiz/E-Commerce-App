@@ -38,6 +38,20 @@ const addItemToCart = async (info) => {
   return await response.data;
 };
 
-const cartService = { getUserCart, createCart, getItems, addItemToCart };
+const deleteItemFromCart = async (info) => {
+  const { cartId, productId } = info;
+  const response = await axios.delete(
+    `${API_URL}/cart/${cartId}/item/${productId}`
+  );
+  return await response.data;
+};
+
+const cartService = {
+  getUserCart,
+  createCart,
+  getItems,
+  addItemToCart,
+  deleteItemFromCart,
+};
 
 export default cartService;

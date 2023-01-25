@@ -1,6 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import cartService from "./cartService";
-//todo hacer carro con local
 
 const cartId = JSON.parse(localStorage.getItem("cartId"));
 
@@ -15,6 +14,7 @@ export const getCart = createAsyncThunk("cart/get", (userId, thunkAPI) => {
     return thunkAPI.rejectWithValue(message);
   }
 });
+
 export const createCart = createAsyncThunk("cart/create", (_, thunkAPI) => {
   try {
     return cartService.createCart();
@@ -53,6 +53,21 @@ export const addItems = createAsyncThunk("cart/addItems", (info, thunkAPI) => {
     return thunkAPI.rejectWithValue(message);
   }
 });
+
+export const deleteItems = createAsyncThunk(
+  "/cart/deleteItems",
+  (info, thunkAPI) => {
+    try {
+      return cartService.deleteItemFromCart(info);
+    } catch (err) {
+      const message =
+        (err.response && err.response.data && err.response.data.message) ||
+        err.message ||
+        err.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 const initialState = {
   cartId: cartId ? cartId : null,
@@ -129,6 +144,21 @@ export const cartSlice = createSlice({
         state.items.push(action.payload);
       })
       .addCase(addItems.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deleteItems.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteItems.fulfilled, (state, action) => {
+        state.isSuccess = true;
+        state.isLoading = false;
+        state.items = current(state.items).filter(
+          (i) => i.product_id !== Number(action.payload.id)
+        );
+      })
+      .addCase(deleteItems.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

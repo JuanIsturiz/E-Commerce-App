@@ -98,21 +98,20 @@ exports.removeCart = asyncHandler(async (req, res) => {
 });
 
 // @desc    Delete item from given cart
-// @route   DELETE /cart/cartItem/:id
+// @route   DELETE /cart/:cartId/item/:productId
 // @access  Private
 exports.removeItemFromCart = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const { product_id } = req.body;
+  const { cartId, productId } = req.params;
   try {
     await pool.query(
-      "DELETE FROM cart_items WHERE user_id = $1 AND product_id = $2 RETURNING *",
-      [id, product_id]
+      "DELETE FROM cart_items WHERE cart_id = $1 AND product_id = $2 RETURNING *",
+      [cartId, productId]
     );
-    const itemName = await pool.query(
-      "SELECT name FROM products WHERE id = $1",
-      [product_id]
+    const product = await pool.query(
+      "SELECT id, name FROM products WHERE id = $1",
+      [productId]
     );
-    res.send(`Succesfully deleted ${itemName.rows[0]} from cart!`);
+    res.json({ id: product.rows[0].id, name: product.rows[0].name });
   } catch (err) {
     res.status(500);
     throw new Error(err.message);
@@ -126,7 +125,7 @@ exports.getProductsByCart = asyncHandler(async (req, res) => {
   const { cartId } = req.params;
   try {
     const products = await pool.query(
-      "SELECT products.id AS product_id, products.name AS product_name, cart_items.quantity AS quantity FROM products, cart_items WHERE products.id = cart_items.product_id AND cart_items.cart_id = $1 ORDER BY products.id",
+      "SELECT products.id AS product_id, products.name AS product_name, products.description AS product_description, cart_items.quantity AS quantity FROM products, cart_items WHERE products.id = cart_items.product_id AND cart_items.cart_id = $1 ORDER BY products.id",
       [cartId]
     );
     res.json({ products: products.rows });
