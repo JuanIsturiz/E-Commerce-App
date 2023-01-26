@@ -1,4 +1,11 @@
-import { FaSignInAlt, FaSignOutAlt, FaUserAlt } from "react-icons/fa";
+import {
+  FaClipboard,
+  FaShoppingBag,
+  FaShoppingCart,
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaUserAlt,
+} from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../features/auth/authSlice";
@@ -9,6 +16,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
+  const { cartId, items } = useSelector((state) => state.cart);
   const onLogout = () => {
     dispatch(logoutUser());
     dispatch(reset());
@@ -21,12 +29,42 @@ const Header = () => {
       </div>
       <nav className="navbar">
         <ul className="navlist">
+          <li className="list-item">
+            <Link className="link" to="/products">
+              <FaShoppingBag /> Products
+            </Link>
+          </li>
+          <li className="list-item">
+            <Link
+              className="link"
+              to={user && cartId ? `/cart/${cartId}` : "/login"}
+            >
+              <FaShoppingCart
+                style={{
+                  fill: !!items.length ? "red" : "black",
+                }}
+              />{" "}
+              Cart
+            </Link>
+          </li>
+          <li className="list-item">
+            <Link className="link" to={user ? `/orders/${user.id}` : "/login"}>
+              <FaClipboard /> Orders
+            </Link>
+          </li>
           {user ? (
-            <li className="list-item" onClick={onLogout}>
-              <Link className="link" to="/">
-                <FaSignOutAlt /> Log Out
-              </Link>
-            </li>
+            <>
+              <li className="list-item">
+                <Link className="link" to={`/user/${user.id}`}>
+                  <FaUserAlt /> {user.first} {user.last}
+                </Link>
+              </li>
+              <li className="list-item" onClick={onLogout}>
+                <Link className="link" to="/">
+                  <FaSignOutAlt /> Log Out
+                </Link>
+              </li>
+            </>
           ) : (
             <>
               <li className="list-item">

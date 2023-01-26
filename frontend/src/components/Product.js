@@ -69,6 +69,7 @@ const Product = ({ info }) => {
         })
       );
     }
+    setQuantity(1);
   };
   return (
     <div className="product">
@@ -84,32 +85,35 @@ const Product = ({ info }) => {
         </p>
       </div>
       <div className="cart-info">
-        <div className="quantity">
-          <span style={{ opacity: inCart ? 0.7 : 1 }}>{quantity} </span>
-          <div className="arrows">
-            <button
-              onClick={onArrowClick}
-              id="up"
-              style={{ opacity: inCart ? 0.7 : 1 }}
-            >
-              <FaArrowAltCircleUp />
-            </button>
-            <button
-              onClick={onArrowClick}
-              id="down"
-              style={{ opacity: inCart ? 0.7 : 1 }}
-            >
-              <FaArrowAltCircleDown />
-            </button>
+        {!inCart && (
+          <div className="quantity">
+            <span style={{ opacity: inCart ? 0.7 : 1 }}>{quantity} </span>
+            <div className="arrows">
+              <button
+                onClick={onArrowClick}
+                id="up"
+                style={{ opacity: inCart ? 0.7 : 1 }}
+              >
+                <FaArrowAltCircleUp />
+              </button>
+              <button
+                onClick={onArrowClick}
+                id="down"
+                style={{ opacity: inCart ? 0.7 : 1 }}
+              >
+                <FaArrowAltCircleDown />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
         <div>
           <button
             onClick={onCartClick}
             id="cart-btn"
             style={{ opacity: inCart ? 0.7 : 1 }}
           >
-            Add to cart <FaShoppingCart />
+            {!inCart ? "Add to cart" : "Item already in cart"}{" "}
+            <FaShoppingCart />
           </button>
         </div>
       </div>

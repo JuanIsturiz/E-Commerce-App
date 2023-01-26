@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCartProducts } from "../API/getCartProducts";
 import CartItem from "../components/CartItem";
-import Sidebar from "../components/Sidebar";
 import { getItems } from "../features/cart/cartSlice";
 import "./Cart.css";
 const Cart = () => {
@@ -27,7 +26,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="cart-section">
+    <>
       <div className="main">
         <section className="heading">
           <h1>Cart</h1>
@@ -40,21 +39,35 @@ const Cart = () => {
               your cart is empty, please add some product first.
             </h4>
           ) : (
-            <div className="item-list">
-              {items.map((i) => (
-                <CartItem
-                  key={i.product_id}
-                  item={i}
-                  cartId={Number(cartId)}
-                  onDelete={deleteItem}
-                />
-              ))}
-            </div>
+            <>
+              <div className="item-list">
+                {items.map((i) => (
+                  <CartItem
+                    key={i.product_id}
+                    item={i}
+                    cartId={Number(cartId)}
+                    onDelete={deleteItem}
+                  />
+                ))}
+              </div>
+              <div>
+                <h4>
+                  Total: $
+                  {items
+                    .reduce(
+                      (acc, el) =>
+                        acc +
+                        Number(el.product_price.substring(1) * el.quantity),
+                      0
+                    )
+                    .toFixed(2)}
+                </h4>
+              </div>
+            </>
           )}
         </section>
       </div>
-      <Sidebar />
-    </div>
+    </>
   );
 };
 

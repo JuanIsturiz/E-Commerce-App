@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ProductList from "../components/ProductList";
-import Sidebar from "../components/Sidebar";
 import { getItems } from "../features/cart/cartSlice";
 import "./Products.css";
 
@@ -23,7 +22,7 @@ const Products = () => {
   }, [user, cartId, navigate, dispatch]);
 
   return (
-    <div className="products-section">
+    <>
       <div className="main">
         <section className="heading">
           <h1>Products</h1>
@@ -32,8 +31,7 @@ const Products = () => {
           <ProductList />
         </section>
       </div>
-      <Sidebar />
-    </div>
+    </>
   );
 };
 
