@@ -107,11 +107,28 @@ exports.removeItemFromCart = asyncHandler(async (req, res) => {
       "DELETE FROM cart_items WHERE cart_id = $1 AND product_id = $2 RETURNING *",
       [cartId, productId]
     );
+
+    const items = await pool.query(
+      "SELECT * FROM cart_items WHERE cart_id = $1",
+      [cartId]
+    );
+
+    const emptyCheck = !!items.rowCount;
+
+    console.log(emptyCheck);
+    if (!emptyCheck) {
+      await pool.query("DELETE FROM carts WHERE id = $1", [cartId]);
+    }
+
     const product = await pool.query(
       "SELECT id, name FROM products WHERE id = $1",
       [productId]
     );
-    res.json({ id: product.rows[0].id, name: product.rows[0].name });
+    res.json({
+      id: product.rows[0].id,
+      name: product.rows[0].name,
+      check: emptyCheck,
+    });
   } catch (err) {
     res.status(500);
     throw new Error(err.message);

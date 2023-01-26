@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FaArrowAltCircleDown,
   FaArrowAltCircleUp,
@@ -11,13 +11,25 @@ import "./Product.css";
 
 const Product = ({ info }) => {
   const [quantity, setQuantity] = useState(1);
+  const [inCart, setInCart] = useState(false);
   const { id, name, description, stock_qty, price } = info;
   const { user } = useSelector((state) => state.auth);
-  const { cartId } = useSelector((state) => state.cart);
+  const { cartId, items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (items.some((i) => i.product_id === Number(id))) {
+      setInCart(true);
+    } else {
+      setInCart(false);
+    }
+  }, [items, id]);
+
   const onArrowClick = (e) => {
+    if (inCart) {
+      return;
+    }
     setQuantity((prev) => {
       if (e.target.id === "up") {
         if (prev === stock_qty) {
@@ -38,11 +50,15 @@ const Product = ({ info }) => {
       navigate("/login");
       return;
     }
+    if (items.some((i) => i.product_id === Number(id))) {
+      return;
+    }
     if (cartId) {
       console.log("cartId: " + cartId + " no need to add a new one");
       dispatch(addItems({ quantity, userId: user.id, productId: id, cartId }));
       return;
     } else {
+      console.log("this");
       const cart = await dispatch(createCart(user.id));
       dispatch(
         addItems({
@@ -69,18 +85,30 @@ const Product = ({ info }) => {
       </div>
       <div className="cart-info">
         <div className="quantity">
-          <span>{quantity} </span>
+          <span style={{ opacity: inCart ? 0.7 : 1 }}>{quantity} </span>
           <div className="arrows">
-            <button onClick={onArrowClick} id="up">
+            <button
+              onClick={onArrowClick}
+              id="up"
+              style={{ opacity: inCart ? 0.7 : 1 }}
+            >
               <FaArrowAltCircleUp />
             </button>
-            <button onClick={onArrowClick} id="down">
+            <button
+              onClick={onArrowClick}
+              id="down"
+              style={{ opacity: inCart ? 0.7 : 1 }}
+            >
               <FaArrowAltCircleDown />
             </button>
           </div>
         </div>
         <div>
-          <button onClick={onCartClick} id="cart-btn">
+          <button
+            onClick={onCartClick}
+            id="cart-btn"
+            style={{ opacity: inCart ? 0.7 : 1 }}
+          >
             Add to cart <FaShoppingCart />
           </button>
         </div>

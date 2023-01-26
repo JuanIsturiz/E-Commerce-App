@@ -157,6 +157,9 @@ export const cartSlice = createSlice({
         state.items = current(state.items).filter(
           (i) => i.product_id !== Number(action.payload.id)
         );
+        if (!action.payload.check) {
+          state.cartId = null;
+        }
       })
       .addCase(deleteItems.rejected, (state, action) => {
         state.isLoading = false;
