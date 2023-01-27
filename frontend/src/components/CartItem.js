@@ -18,7 +18,6 @@ const CartItem = ({ item, cartId, onDelete }) => {
     dispatch(deleteItems({ cartId, productId: product_id }));
     onDelete(product_id);
   };
-  console.log();
   return (
     <div className="cart-item">
       <div className="info">

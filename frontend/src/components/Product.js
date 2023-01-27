@@ -32,14 +32,10 @@ const Product = ({ info }) => {
     }
     setQuantity((prev) => {
       if (e.target.id === "up") {
-        if (prev === stock_qty) {
-          return prev;
-        }
+        if (prev === stock_qty) return prev;
         return prev + 1;
       } else {
-        if (prev === 1) {
-          return prev;
-        }
+        if (prev === 1) return prev;
         return prev - 1;
       }
     });
@@ -50,9 +46,8 @@ const Product = ({ info }) => {
       navigate("/login");
       return;
     }
-    if (items.some((i) => i.product_id === Number(id))) {
-      return;
-    }
+    if (inCart) return;
+
     if (cartId) {
       console.log("cartId: " + cartId + " no need to add a new one");
       dispatch(addItems({ quantity, userId: user.id, productId: id, cartId }));
@@ -87,20 +82,12 @@ const Product = ({ info }) => {
       <div className="cart-info">
         {!inCart && (
           <div className="quantity">
-            <span style={{ opacity: inCart ? 0.7 : 1 }}>{quantity} </span>
+            <span>{quantity} </span>
             <div className="arrows">
-              <button
-                onClick={onArrowClick}
-                id="up"
-                style={{ opacity: inCart ? 0.7 : 1 }}
-              >
+              <button onClick={onArrowClick} id="up">
                 <FaArrowAltCircleUp />
               </button>
-              <button
-                onClick={onArrowClick}
-                id="down"
-                style={{ opacity: inCart ? 0.7 : 1 }}
-              >
+              <button onClick={onArrowClick} id="down">
                 <FaArrowAltCircleDown />
               </button>
             </div>

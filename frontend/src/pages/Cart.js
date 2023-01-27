@@ -33,13 +33,13 @@ const Cart = () => {
         </section>
         <section className="content">
           {!items.length ? (
-            <h4>
+            <h4 id="sorry">
               Sorry{" "}
               <span style={{ textTransform: "capitalize" }}>{user.first}</span>,
               your cart is empty, please add some product first.
             </h4>
           ) : (
-            <>
+            <div className="items-summary">
               <div className="item-list">
                 {items.map((i) => (
                   <CartItem
@@ -50,20 +50,39 @@ const Cart = () => {
                   />
                 ))}
               </div>
-              <div>
-                <h4>
-                  Total: $
-                  {items
-                    .reduce(
-                      (acc, el) =>
-                        acc +
-                        Number(el.product_price.substring(1) * el.quantity),
-                      0
-                    )
-                    .toFixed(2)}
-                </h4>
+              <div className="summary">
+                <h3>Order Summary</h3>
+                <div>
+                  <h5>
+                    Items ({items.reduce((acc, el) => acc + el.quantity, 0)}):{" "}
+                    <span style={{ float: "right" }}>
+                      $
+                      {items
+                        .reduce(
+                          (acc, el) =>
+                            acc +
+                            Number(el.product_price.substring(1) * el.quantity),
+                          0
+                        )
+                        .toFixed(2)}
+                    </span>
+                  </h5>
+                  <hr />
+                  <h4>
+                    Total: $
+                    {items
+                      .reduce(
+                        (acc, el) =>
+                          acc +
+                          Number(el.product_price.substring(1) * el.quantity),
+                        0
+                      )
+                      .toFixed(2)}
+                  </h4>
+                  <button>Checkout and place order</button>
+                </div>
               </div>
-            </>
+            </div>
           )}
         </section>
       </div>

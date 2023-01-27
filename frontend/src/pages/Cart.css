@@ -1,8 +1,40 @@
-.cart-section {
-  margin-left: 3.5rem;
-  display: flex;
+#sorry {
+  text-align: center;
 }
 
-.item-list {
-  width: 40rem;
+.items-summary {
+  display: grid;
+  grid: 1fr / 2fr 1fr;
+  gap: 1rem;
+}
+
+.summary {
+  height: 9rem;
+  padding: .5rem;
+  border: .2rem solid #ccc;
+  border-radius: .25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.summary hr {
+  margin-bottom: .5rem;
+}
+
+.summary div h4 {
+  color: rgb(150, 35, 35);
+  margin-bottom: .25rem;
+}
+
+.summary div button {
+  cursor: pointer;
+  width: 99%;
+  color: #222;
+  background-color: rgb(193, 255, 100);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: .5rem 0;
+  border: .15rem solid rgb(88, 131, 24);
+  border-radius: .25rem;
 }
