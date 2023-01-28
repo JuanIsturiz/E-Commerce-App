@@ -11,4 +11,5 @@ module.exports = {
     PGPORT: process.env.PGPORT,
   },
   SESSION_SECRET: process.env.SESSION_SECRET,
+  STRIPE_SECRET: process.env.STRIPE_SECRET,
 };

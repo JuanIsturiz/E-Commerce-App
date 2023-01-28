@@ -3,7 +3,7 @@ const app = express();
 const session = require("express-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
-const { SESSION_SECRET, PORT } = require("./config");
+const { SESSION_SECRET, PORT, STRIPE_SECRET } = require("./config");
 const cors = require("cors");
 
 //passport initialization
@@ -16,6 +16,7 @@ initializePassport(passport);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+app.use(express.static("public"));
 
 // session setup
 app.use(

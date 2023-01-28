@@ -113,6 +113,7 @@ export const cartSlice = createSlice({
       .addCase(createCart.fulfilled, (state, action) => {
         state.isSuccess = true;
         state.isLoading = false;
+        console.log(action);
         state.cartId = action.payload;
       })
       .addCase(createCart.rejected, (state, action) => {
@@ -159,6 +160,7 @@ export const cartSlice = createSlice({
         );
         if (!action.payload.check) {
           state.cartId = null;
+          localStorage.removeItem("cartId");
         }
       })
       .addCase(deleteItems.rejected, (state, action) => {

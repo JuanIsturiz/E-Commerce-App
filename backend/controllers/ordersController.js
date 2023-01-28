@@ -79,3 +79,41 @@ exports.cancelOrder = asyncHandler(async (req, res) => {
     throw new Error(err.message);
   }
 });
+
+// @desc    Get orders by userId
+// @route   GET /orders/:userId
+// @access  Private
+exports.getOrdersByUser = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const ordersQuery = await pool.query(
+      "SELECT * FROM orders WHERE user_id = $1",
+      [userId]
+    );
+    const orders = ordersQuery.rows;
+
+    for (const order of orders) {
+      const { id } = order;
+      const itemsQuery = await pool.query(
+        "SELECT * FROM order_items WHERE order_id = $1",
+        [id]
+      );
+      const items = itemsQuery.rows;
+
+      for (const item of items) {
+        const { product_id } = item;
+        const itemQuery = await pool.query(
+          "SELECT * FROM products WHERE id = $1",
+          [product_id]
+        );
+        const product = itemQuery.rows[0];
+        item.product = product;
+      }
+      order.items = items;
+    }
+    res.json({ orders });
+  } catch (err) {
+    res.status(500);
+    throw new Error(err.message);
+  }
+};

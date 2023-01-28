@@ -53,8 +53,8 @@ const Product = ({ info }) => {
       dispatch(addItems({ quantity, userId: user.id, productId: id, cartId }));
       return;
     } else {
-      console.log("this");
       const cart = await dispatch(createCart(user.id));
+      console.log(`created new cart with id: ${cart.payload}`);
       dispatch(
         addItems({
           quantity,

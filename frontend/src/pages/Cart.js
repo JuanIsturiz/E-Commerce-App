@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCartProducts } from "../API/getCartProducts";
+import { stripeCheckout } from "../API/Stripe";
 import CartItem from "../components/CartItem";
 import { getItems } from "../features/cart/cartSlice";
 import "./Cart.css";
@@ -23,6 +24,11 @@ const Cart = () => {
 
   const deleteItem = (id) => {
     setItems((prev) => prev.filter((i) => i.product_id !== id));
+  };
+
+  const onCheckout = () => {
+    console.log(123);
+    stripeCheckout(cartId, items);
   };
 
   return (
@@ -79,7 +85,7 @@ const Cart = () => {
                       )
                       .toFixed(2)}
                   </h4>
-                  <button>Checkout and place order</button>
+                  <button onClick={onCheckout}>Checkout and place order</button>
                 </div>
               </div>
             </div>

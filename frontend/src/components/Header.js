@@ -35,10 +35,7 @@ const Header = () => {
             </Link>
           </li>
           <li className="list-item">
-            <Link
-              className="link"
-              to={user && cartId ? `/cart/${cartId}` : "/login"}
-            >
+            <Link className="link" to={user ? `/cart/${cartId}` : "/login"}>
               <FaShoppingCart
                 style={{
                   fill: !!items.length ? "red" : "black",

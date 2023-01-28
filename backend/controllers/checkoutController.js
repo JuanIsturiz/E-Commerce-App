@@ -1,5 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const pool = require("../db/dbConfig");
+const { STRIPE_SECRET } = require("../config");
+const stripe = require("stripe")(STRIPE_SECRET);
 
 // @desc    Creates an order
 // @route   POST /checkout/cart/:cartId
@@ -17,7 +19,10 @@ exports.checkoutOrder = asyncHandler(async (req, res) => {
     for (const product of products) {
       const { id, qty, price } = product;
 
-      await pool.query("DELETE FROM cart_items WHERE product_id = $1", [id]);
+      await pool.query(
+        "DELETE FROM cart_items WHERE product_id = $1 AND cart_id = $2",
+        [id, cartId]
+      );
 
       const cartCheck = await pool.query(
         "SELECT * FROM cart_items WHERE cart_id = $1",
@@ -46,4 +51,18 @@ exports.checkoutOrder = asyncHandler(async (req, res) => {
     res.status(500);
     throw new Error(err.message);
   }
+});
+
+exports.checkoutOrderStripe = asyncHandler(async (req, res) => {
+  const { cartId } = req.params;
+  const { items } = req.body;
+
+  const session = await stripe.checkout.sessions.create({
+    line_items: items,
+    mode: "payment",
+    success_url: "http://localhost:3000/checkout/success",
+    cancel_url: "http://localhost:3000/checkout/cancel",
+  });
+
+  res.json({ url: session.url });
 });

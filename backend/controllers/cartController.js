@@ -115,7 +115,6 @@ exports.removeItemFromCart = asyncHandler(async (req, res) => {
 
     const emptyCheck = !!items.rowCount;
 
-    console.log(emptyCheck);
     if (!emptyCheck) {
       await pool.query("DELETE FROM carts WHERE id = $1", [cartId]);
     }
