@@ -81,7 +81,7 @@ exports.cancelOrder = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get orders by userId
-// @route   GET /orders/:userId
+// @route   GET /orders/user/:userId
 // @access  Private
 exports.getOrdersByUser = async (req, res) => {
   const { userId } = req.params;
@@ -95,7 +95,7 @@ exports.getOrdersByUser = async (req, res) => {
     for (const order of orders) {
       const { id } = order;
       const itemsQuery = await pool.query(
-        "SELECT * FROM order_items WHERE order_id = $1",
+        "SELECT * FROM order_item WHERE order_id = $1",
         [id]
       );
       const items = itemsQuery.rows;

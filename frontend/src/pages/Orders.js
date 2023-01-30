@@ -2,6 +2,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserOrders } from "../features/orders/ordersSlice";
 import "./Orders.css";
+
+//todo render orders
+//todo add cancel order feature
+//todo add oauth authentication feature
+//todo make it responsive
+
 const Orders = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -27,7 +33,7 @@ const Orders = () => {
           ) : (
             <div className="item-list">
               {orders.map((o) => (
-                <div>{o.id}</div>
+                <div key={o.id}>{o.id}</div>
               ))}
             </div>
           )}

@@ -27,7 +27,6 @@ const Cart = () => {
   };
 
   const onCheckout = () => {
-    console.log(123);
     stripeCheckout(cartId, items);
   };
 

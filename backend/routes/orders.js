@@ -4,6 +4,7 @@ const {
   getOrderById,
   updateOrder,
   cancelOrder,
+  getOrdersByUser,
 } = require("../controllers/ordersController");
 
 //gets all orders
@@ -17,5 +18,7 @@ ordersRouter.put("/:id", updateOrder);
 
 //deletes order by id
 ordersRouter.delete("/:id/cancel", cancelOrder);
+
+ordersRouter.get("/user/:userId", getOrdersByUser);
 
 module.exports = ordersRouter;

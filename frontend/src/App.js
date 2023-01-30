@@ -7,7 +7,6 @@ import Login from "./pages/Login";
 import Orders from "./pages/Orders";
 import Products from "./pages/Products";
 import Register from "./pages/Register";
-import StripeCancel from "./pages/StripeCancel";
 import StripeSuccess from "./pages/StripeSuccess";
 import UserDashboard from "./pages/UserDashboard";
 
@@ -22,8 +21,7 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/cart/:cartId" element={<Cart />} />
           <Route path="/orders/:userId" element={<Orders />} />
-          <Route path="/checkout/success" element={<StripeSuccess />} />
-          <Route path="/checkout/cancel" element={<StripeCancel />} />
+          <Route path="/checkout/cart/success" element={<StripeSuccess />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
