@@ -28,6 +28,7 @@
 }
 
 .summary div button {
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
   width: 99%;
   color: #222;

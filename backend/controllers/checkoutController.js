@@ -3,8 +3,6 @@ const pool = require("../db/dbConfig");
 const { STRIPE_SECRET } = require("../config");
 const stripe = require("stripe")(STRIPE_SECRET);
 
-//todo delete cartId from localStorage
-
 // @desc    Creates an order
 // @route   POST /checkout/cart/:cartId
 // @access  Private

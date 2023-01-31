@@ -19,11 +19,9 @@
   display: flex;
   list-style: none;
   justify-content: center;
-  /* gap: 1rem; */
 }
 
 .link {
-  width: 8rem;
   padding: 1rem;
   display: flex;
   justify-content: center;
@@ -37,27 +35,11 @@
 }
 
 .link>div {
-  width: 8rem;
   background-color: red;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: .5rem;
-}
-
-.link #notification {
-  font-size: .75rem;
-  color: #fff;
-  position: relative;
-  width: 1rem;
-  height: 1rem;
-  background-color: red;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 2.25rem;
-  bottom: .6rem;
 }
 
 .list-item:hover {

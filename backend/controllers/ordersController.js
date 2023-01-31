@@ -53,9 +53,9 @@ exports.updateOrder = asyncHandler(async (req, res) => {
 });
 
 // @desc    Deletes order by id
-// @route   DELETE /orders/:id/cancel
+// @route   DELETE /orders/:id/delete
 // @access  Private
-exports.cancelOrder = asyncHandler(async (req, res) => {
+exports.deleteOrder = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
     const { rows } = await pool.query(
@@ -83,7 +83,7 @@ exports.cancelOrder = asyncHandler(async (req, res) => {
 // @desc    Get orders by userId
 // @route   GET /orders/user/:userId
 // @access  Private
-exports.getOrdersByUser = async (req, res) => {
+exports.getOrdersByUser = asyncHandler(async (req, res) => {
   const { userId } = req.params;
   try {
     const ordersQuery = await pool.query(
@@ -116,4 +116,33 @@ exports.getOrdersByUser = async (req, res) => {
     res.status(500);
     throw new Error(err.message);
   }
-};
+});
+
+//todo update modified as well
+exports.cancelOrder = asyncHandler(async (req, res) => {
+  const { orderId } = req.params;
+  console.log(orderId);
+  const modified = new Date().toISOString().split("T")[0];
+
+  const orderQuery = await pool.query(
+    "UPDATE orders SET status = 'Cancelled', modified = $1 WHERE id = $2 RETURNING *",
+    [modified, orderId]
+  );
+
+  const products = await pool.query(
+    "SELECT product_id, quantity FROM order_item WHERE order_id =$1",
+    [orderId]
+  );
+
+  for (const product of products.rows) {
+    const { quantity, product_id } = product;
+    await pool.query(
+      "UPDATE products SET stock_qty = stock_qty + $1 WHERE id = $2",
+      [quantity, product_id]
+    );
+  }
+
+  await pool.query("DELETE FROM order_item WHERE order_id = $1", [orderId]);
+
+  res.json({ id: orderQuery.rows[0].id });
+});

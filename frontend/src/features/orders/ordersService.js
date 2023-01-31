@@ -26,9 +26,15 @@ const createOrder = async (info) => {
   return await response.data;
 };
 
+const cancelOrder = async (orderId) => {
+  const response = await axios.put(`${API_URL}/orders/${orderId}/cancel`);
+  return await response.data;
+};
+
 const ordersService = {
   getUserOrders,
   createOrder,
+  cancelOrder,
 };
 
 export default ordersService;

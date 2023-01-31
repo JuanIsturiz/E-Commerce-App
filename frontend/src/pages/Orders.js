@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import OrderItem from "../components/OrderItem";
 import { getUserOrders } from "../features/orders/ordersSlice";
 import "./Orders.css";
 
@@ -33,7 +34,7 @@ const Orders = () => {
           ) : (
             <div className="item-list">
               {orders.map((o) => (
-                <div key={o.id}>{o.id}</div>
+                <OrderItem key={o.id} order={o} />
               ))}
             </div>
           )}

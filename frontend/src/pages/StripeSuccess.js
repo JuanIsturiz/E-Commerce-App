@@ -12,24 +12,20 @@ const StripeSuccess = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    if (cartId && user) {
-      console.log("stripe success uef");
-      getCartProducts(cartId).then((res) => {
-        const { products } = res;
-        const total = products.reduce(
-          (acc, el) =>
-            acc + Number(el.product_price.substring(1) * el.quantity),
-          0
-        );
-        dispatch(
-          createOrder({ cartId, total, userId: user.id, products })
-        ).then((res) => {
+    if (!cartId || !user) return;
+
+    getCartProducts(cartId).then((res) => {
+      const { products } = res;
+      const total = products.reduce(
+        (acc, el) => acc + Number(el.product_price.substring(1) * el.quantity),
+        0
+      );
+      dispatch(createOrder({ cartId, total, userId: user.id, products })).then(
+        (res) => {
           dispatch(reset());
-        });
-      });
-    } else {
-      navigate(`/orders/${user.id}`);
-    }
+        }
+      );
+    });
   }, [cartId, dispatch, user, navigate]);
   return (
     <section className="content">
