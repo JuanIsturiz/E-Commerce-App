@@ -6,6 +6,7 @@ import { stripeCheckout } from "../API/Stripe";
 import CartItem from "../components/CartItem";
 import { getItems } from "../features/cart/cartSlice";
 import "./Cart.css";
+
 const Cart = () => {
   const [items, setItems] = useState([]);
 

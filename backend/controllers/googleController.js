@@ -1,9 +1,15 @@
 const passport = require("passport");
+const pool = require("../db/dbConfig");
 
-exports.googleSuccess = (req, res) => {
+exports.googleSuccess = async (req, res) => {
   const { _json } = req.user;
+  const userIdQuery = await pool.query(
+    "SELECT * FROM users WHERE google_id = $1",
+    [_json.sub]
+  );
+
   const user = {
-    id: _json.sub,
+    id: userIdQuery.rows[0].id,
     first: _json.given_name,
     last: _json.family_name,
     email: _json.email,
