@@ -10,6 +10,7 @@ const indexRouter = require("express").Router(),
   logoutRouter = require("./logout");
 
 const { isAuth, isNotAuth } = require("../middlewares/authentication");
+const googleRouter = require("./google");
 
 //routes setup
 indexRouter.use("/", homeRouter);
@@ -21,5 +22,6 @@ indexRouter.use("/orders", ordersRouter);
 indexRouter.use("/products", productsRouter);
 indexRouter.use("/checkout", checkoutRouter);
 indexRouter.use("/logout", logoutRouter);
+indexRouter.use("/google", googleRouter);
 
 module.exports = indexRouter;

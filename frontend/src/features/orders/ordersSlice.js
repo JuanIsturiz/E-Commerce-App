@@ -32,11 +32,11 @@ export const createOrder = createAsyncThunk(
   }
 );
 
-export const cancelOrder = createAsyncThunk(
-  "orders/cancel",
-  async (orderId, thunkAPI) => {
+export const updateOrderStatus = createAsyncThunk(
+  "orders/update",
+  async (info, thunkAPI) => {
     try {
-      return ordersService.cancelOrder(orderId);
+      return ordersService.updateOrderStatus(info);
     } catch (err) {
       const message =
         (err.response && err.response.data && err.response.data.message) ||
@@ -92,22 +92,20 @@ const ordersSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-      .addCase(cancelOrder.pending, (state, action) => {
+      .addCase(updateOrderStatus.pending, (state, action) => {
         state.isLoading = true;
       })
-      .addCase(cancelOrder.fulfilled, (state, action) => {
+      .addCase(updateOrderStatus.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.orders = current(state.orders).map((o) => {
           if (o.id === action.payload.id) {
-            console.log("o.id ", typeof o.id);
-            console.log("action.payload.id ", typeof action.payload.id);
-            return { ...o, status: "Cancelled" };
+            return { ...o, status: action.payload.status };
           }
           return o;
         });
       })
-      .addCase(cancelOrder.rejected, (state, action) => {
+      .addCase(updateOrderStatus.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

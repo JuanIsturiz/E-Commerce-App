@@ -1,19 +1,28 @@
 import "./OrderItem.css";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { cancelOrder } from "../features/orders/ordersSlice";
+import { updateOrderStatus } from "../features/orders/ordersSlice";
 
 const OrderItem = ({ order }) => {
   const dispatch = useDispatch();
 
   const { id, deliver_date, status, total, items } = order;
+
+  const todayTime = new Date().getTime();
+  const deliverTime = new Date(deliver_date).getTime();
+  useEffect(() => {
+    if (todayTime >= deliverTime && status === "Pending") {
+      dispatch(updateOrderStatus({ id, status: "Success" }));
+    }
+  }, [deliverTime, dispatch, id, status, todayTime]);
+
   const statusColor =
     status === "Success" ? "green" : status === "Pending" ? "orange" : "red";
 
   const onCancel = () => {
     if (status !== "Pending") return;
-    dispatch(cancelOrder(id));
+    dispatch(updateOrderStatus({ id, status: "Cancelled" }));
   };
 
   return (

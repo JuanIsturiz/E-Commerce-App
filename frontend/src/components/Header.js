@@ -53,7 +53,17 @@ const Header = () => {
             <>
               <li className="list-item">
                 <Link className="link" to={`/user/${user.id}`}>
-                  <FaUserAlt /> {user.first} {user.last}
+                  {user.picture ? (
+                    <img
+                      src={user.picture}
+                      alt="user pic"
+                      style={{ width: "2rem", height: "2rem" }}
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <FaUserAlt />
+                  )}{" "}
+                  {user.first} {user.last}
                 </Link>
               </li>
               <li className="list-item" onClick={onLogout}>

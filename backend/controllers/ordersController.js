@@ -118,31 +118,32 @@ exports.getOrdersByUser = asyncHandler(async (req, res) => {
   }
 });
 
-//todo update modified as well
-exports.cancelOrder = asyncHandler(async (req, res) => {
+exports.updateOrderStatus = asyncHandler(async (req, res) => {
   const { orderId } = req.params;
-  console.log(orderId);
+  const { status } = req.body;
   const modified = new Date().toISOString().split("T")[0];
 
   const orderQuery = await pool.query(
-    "UPDATE orders SET status = 'Cancelled', modified = $1 WHERE id = $2 RETURNING *",
-    [modified, orderId]
+    "UPDATE orders SET status = $1 , modified = $2 WHERE id = $3 RETURNING *",
+    [status, modified, orderId]
   );
 
-  const products = await pool.query(
-    "SELECT product_id, quantity FROM order_item WHERE order_id =$1",
-    [orderId]
-  );
-
-  for (const product of products.rows) {
-    const { quantity, product_id } = product;
-    await pool.query(
-      "UPDATE products SET stock_qty = stock_qty + $1 WHERE id = $2",
-      [quantity, product_id]
+  if (status === "Cancelled") {
+    const products = await pool.query(
+      "SELECT product_id, quantity FROM order_item WHERE order_id =$1",
+      [orderId]
     );
+
+    for (const product of products.rows) {
+      const { quantity, product_id } = product;
+      await pool.query(
+        "UPDATE products SET stock_qty = stock_qty + $1 WHERE id = $2",
+        [quantity, product_id]
+      );
+    }
+
+    await pool.query("DELETE FROM order_item WHERE order_id = $1", [orderId]);
   }
 
-  await pool.query("DELETE FROM order_item WHERE order_id = $1", [orderId]);
-
-  res.json({ id: orderQuery.rows[0].id });
+  res.json({ id: orderQuery.rows[0].id, status: orderQuery.rows[0].status });
 });

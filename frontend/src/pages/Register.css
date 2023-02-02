@@ -13,11 +13,10 @@
 
 .form {
   font-size: 1.25rem;
-  display: flex;
-  justify-content: center;
 }
 
 form {
+  margin: 0 auto;
   width: 25rem;
 }
 

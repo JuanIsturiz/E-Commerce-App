@@ -12,7 +12,7 @@ import "./Product.css";
 const Product = ({ info }) => {
   const [quantity, setQuantity] = useState(1);
   const [inCart, setInCart] = useState(false);
-  const { id, name, description, stock_qty, price } = info;
+  const { id, name, description, stock_qty, price, image } = info;
   const { user } = useSelector((state) => state.auth);
   const { cartId, items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -78,6 +78,9 @@ const Product = ({ info }) => {
           Stock Quantity:{" "}
           <span>{!!stock_qty ? stock_qty : "Not Available"}</span>
         </p>
+      </div>
+      <div className="image">
+        <img src={image} alt={name} />
       </div>
       <div className="cart-info">
         {!inCart && (

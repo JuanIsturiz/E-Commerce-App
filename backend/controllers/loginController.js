@@ -1,9 +1,11 @@
-const { session } = require("passport");
 const passport = require("passport");
 
 exports.loginSuccess = (req, res) => {
+  if (req.error) {
+    res.status(401);
+    throw new Error(req.error);
+  }
   const { user } = req;
-  session.user = user;
   res.json({
     id: user.id,
     first: user.first_name,
@@ -11,10 +13,21 @@ exports.loginSuccess = (req, res) => {
     email: user.email,
   });
 };
+
 // @desc    Logs user with passport.js
 // @route   POST /login
 // @access  Public
-exports.loginUser = passport.authenticate("local", {
-  // successRedirect: "/login/succes",
-  // failureRedirect: "/login",
-});
+exports.loginUser = (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      req.error = err;
+      return next();
+    }
+    if (info) {
+      req.error = info.message;
+      return next();
+    }
+    req.user = user;
+    return next();
+  })(req, res, next);
+};

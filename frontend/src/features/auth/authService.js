@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const API_URL = "http://localhost:5000";
 
@@ -21,6 +22,7 @@ const loginUser = async (userData) => {
 const logoutUser = async () => {
   localStorage.removeItem("user");
   localStorage.removeItem("cartId");
+  Cookies.remove("user");
   await axios.get(`${API_URL}/logout`);
 };
 

@@ -1,3 +1,10 @@
+/////todo render orders
+/////todo add cancel order feature
+//todo add oauth authentication feature
+//todo base64 img
+//todo preguntar gab sobre id out of range y uuid solution
+//todo make it responsive
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";

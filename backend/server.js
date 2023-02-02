@@ -2,20 +2,27 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const passport = require("passport");
-const bodyParser = require("body-parser");
-const { SESSION_SECRET, PORT, STRIPE_SECRET } = require("./config");
+const { SESSION_SECRET, PORT } = require("./config");
 const cors = require("cors");
 
 //passport initialization
-const initializePassport = require("./passport");
+require("./auth/google");
+require("./auth/passport");
+
 const indexRouter = require("./routes");
 const { errorHandler } = require("./middlewares/errorMiddleware");
-initializePassport(passport);
+const cookieParser = require("cookie-parser");
 
 //server setup
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use(express.static("public"));
 
 // session setup
@@ -31,6 +38,9 @@ app.use(
     sameSite: "none",
   })
 );
+
+//cookie parser init
+app.use(cookieParser(SESSION_SECRET));
 
 //passport setup
 app.use(passport.initialize());

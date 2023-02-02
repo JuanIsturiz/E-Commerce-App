@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { FaUser } from "react-icons/fa";
+import { FaGoogle, FaUser } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser, reset } from "../features/auth/authSlice";
 import { getCart } from "../features/cart/cartSlice";
+import "./Login.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -73,6 +74,12 @@ const Login = () => {
           </div>
           <button type="submit">Log In</button>
         </form>
+        <a href="http://localhost:5000/google">
+          <button id="google">
+            Log in with Google
+            <FaGoogle />
+          </button>
+        </a>
       </section>
     </>
   );

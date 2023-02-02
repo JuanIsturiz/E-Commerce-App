@@ -141,7 +141,7 @@ exports.getProductsByCart = asyncHandler(async (req, res) => {
   const { cartId } = req.params;
   try {
     const products = await pool.query(
-      "SELECT products.id AS product_id, products.name AS product_name, products.description AS product_description, products.price AS product_price, cart_items.quantity AS quantity FROM products, cart_items WHERE products.id = cart_items.product_id AND cart_items.cart_id = $1 ORDER BY products.id",
+      "SELECT products.id AS product_id, products.name AS product_name, products.description AS product_description, products.price AS product_price, products.image as product_image, cart_items.quantity AS quantity FROM products, cart_items WHERE products.id = cart_items.product_id AND cart_items.cart_id = $1 ORDER BY products.id",
       [cartId]
     );
     res.json({ products: products.rows });

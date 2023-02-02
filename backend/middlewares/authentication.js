@@ -2,8 +2,7 @@
 const isAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
     console.log("user authenticated");
-
-    return res.redirect("/users/dashboard");
+    // return res.redirect("/users/dashboard");
   }
   next();
 };
@@ -15,7 +14,7 @@ const isNotAuth = (req, res, next) => {
     return next();
   }
   console.log("user not authenticated");
-  res.redirect("/login");
+  res.redirect("http://localhost:3000");
 };
 
 module.exports = {

@@ -4,11 +4,6 @@ import OrderItem from "../components/OrderItem";
 import { getUserOrders } from "../features/orders/ordersSlice";
 import "./Orders.css";
 
-//todo render orders
-//todo add cancel order feature
-//todo add oauth authentication feature
-//todo make it responsive
-
 const Orders = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
