@@ -17,7 +17,7 @@ export const stripeCheckout = async (cartId, items) => {
   const stripeItems = getStripePrices(items);
 
   const response = await axios.post(
-    `http://localhost:5000/checkout/cart/${cartId}`,
+    `http://localhost:5000/checkout/cart/${cartId}/stripe`,
     { items: stripeItems }
   );
   if (response.data.url) {

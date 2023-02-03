@@ -11,6 +11,7 @@ exports.checkoutOrder = asyncHandler(async (req, res) => {
   const { deliverDate, total, userId, products } = req.body;
   const status = "Pending";
   const modified = new Date().toISOString().split("T")[0];
+
   try {
     const newOrder = await pool.query(
       "INSERT INTO orders (deliver_date, total, status, modified, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *",
@@ -25,15 +26,6 @@ exports.checkoutOrder = asyncHandler(async (req, res) => {
         [product_id, cartId]
       );
 
-      const cartCheck = await pool.query(
-        "SELECT * FROM cart_items WHERE cart_id = $1",
-        [cartId]
-      );
-
-      if (!cartCheck.rowCount) {
-        await pool.query("DELETE FROM carts WHERE id = $1", [cartId]);
-      }
-
       await pool.query(
         "INSERT INTO order_item (quantity, price, order_id, product_id) VALUES ($1, $2, $3, $4)",
         [quantity, product_price, newOrder.rows[0].id, product_id]
@@ -43,7 +35,19 @@ exports.checkoutOrder = asyncHandler(async (req, res) => {
         [quantity, product_id]
       );
     }
-    res.status(201).json({ order: newOrder.rows[0] });
+
+    const cartCheck = await pool.query(
+      "SELECT * FROM cart_items WHERE cart_id = $1",
+      [cartId]
+    );
+
+    if (!cartCheck.rowCount) {
+      await pool.query("DELETE FROM carts WHERE id = $1", [cartId]);
+    }
+
+    res
+      .status(201)
+      .json({ order: newOrder.rows[0], check: !!cartCheck.rowCount });
   } catch (err) {
     res.status(500);
     throw new Error(err.message);

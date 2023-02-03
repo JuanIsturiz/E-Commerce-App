@@ -20,7 +20,6 @@ export const createOrder = createAsyncThunk(
   "orders/create",
   async (info, thunkAPI) => {
     try {
-      console.log("step 2");
       return ordersService.createOrder(info);
     } catch (err) {
       const message =
@@ -50,6 +49,7 @@ export const updateOrderStatus = createAsyncThunk(
 const initialState = {
   orders: [],
   items: [],
+  algoState: null,
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -82,7 +82,6 @@ const ordersSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        console.log(action.payload);
         if (!action.payload.check) {
           localStorage.removeItem("cartId");
         }

@@ -13,18 +13,22 @@ const StripeSuccess = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!cartId || !user) return;
-
     getCartProducts(cartId).then((res) => {
       const { products } = res;
-      const total = products.reduce(
+      const newProducts = products.map((p) => ({
+        product_id: p.product_id,
+        product_price: p.product_price,
+        quantity: p.quantity,
+      }));
+      const total = newProducts.reduce(
         (acc, el) => acc + Number(el.product_price.substring(1) * el.quantity),
         0
       );
-      dispatch(createOrder({ cartId, total, userId: user.id, products })).then(
-        (res) => {
-          dispatch(reset());
-        }
-      );
+      dispatch(
+        createOrder({ cartId, total, userId: user.id, products: newProducts })
+      ).then((res) => {
+        dispatch(reset());
+      });
     });
   }, [cartId, dispatch, user, navigate]);
   return (

@@ -18,9 +18,8 @@ const createOrder = async (info) => {
     userId,
     products,
   };
-
   const response = await axios.post(
-    `${API_URL}/checkout/cart/${cartId}/success`,
+    `${API_URL}/checkout/cart/${cartId}/create`,
     bodyInfo
   );
   return await response.data;

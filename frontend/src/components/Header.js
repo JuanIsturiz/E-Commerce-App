@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   FaClipboard,
   FaShoppingBag,
@@ -7,16 +8,22 @@ import {
   FaUserAlt,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { logoutUser } from "../features/auth/authSlice";
-import { reset } from "../features/cart/cartSlice";
+import { getCart, reset } from "../features/cart/cartSlice";
 import "./Header.css";
 
 const Header = () => {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { cartId, items } = useSelector((state) => state.cart);
+  useEffect(() => {
+    if (!user) return;
+    if (pathname.includes("/checkout/cart/success")) return;
+    dispatch(getCart(user.id));
+  }, [dispatch, user, pathname]);
   const onLogout = () => {
     dispatch(logoutUser());
     dispatch(reset());
