@@ -7,7 +7,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addItems, createCart } from "../features/cart/cartSlice";
-import "./Product.css";
 
 const Product = ({ info }) => {
   const [quantity, setQuantity] = useState(1);

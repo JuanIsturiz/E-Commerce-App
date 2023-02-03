@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OrderItem from "../components/OrderItem";
 import { getUserOrders } from "../features/orders/ordersSlice";
-import "./Orders.css";
 
 const Orders = () => {
   const dispatch = useDispatch();

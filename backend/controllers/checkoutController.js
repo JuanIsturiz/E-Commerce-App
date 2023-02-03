@@ -4,7 +4,7 @@ const { STRIPE_SECRET } = require("../config");
 const stripe = require("stripe")(STRIPE_SECRET);
 
 // @desc    Creates an order
-// @route   POST /checkout/cart/:cartId
+// @route   POST /checkout/cart/:cartId/create
 // @access  Private
 exports.checkoutOrder = asyncHandler(async (req, res) => {
   const { cartId } = req.params;
@@ -54,6 +54,9 @@ exports.checkoutOrder = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Uses stripe library for checkout
+// @route   POST /checkout/cart/:cartId/stripe
+// @access  Private
 exports.checkoutOrderStripe = asyncHandler(async (req, res) => {
   const { cartId } = req.params;
   const { items } = req.body;

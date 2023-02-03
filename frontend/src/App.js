@@ -1,12 +1,6 @@
-/////todo render orders
-/////todo add cancel order feature
-/////todo add oauth authentication feature
-/////todo base64 img
-//todo make it responsive
-//todo refactor setupDatabase file
+//todo add user dashboard cart info, orders and total status
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
 import Header from "./components/Header";
 import Cart from "./pages/Cart";
 import Homepage from "./pages/Homepage";
@@ -25,7 +19,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/users/dashboard" element={<UserDashboard />} />
+          <Route path="/user/:userId" element={<UserDashboard />} />
           <Route path="/products" element={<Products />} />
           <Route path="/cart/:cartId" element={<Cart />} />
           <Route path="/orders/:userId" element={<Orders />} />

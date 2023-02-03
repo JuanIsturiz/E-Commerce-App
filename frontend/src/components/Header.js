@@ -10,8 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { logoutUser } from "../features/auth/authSlice";
-import { getCart, reset } from "../features/cart/cartSlice";
-import "./Header.css";
+import { getCart, getItems, reset } from "../features/cart/cartSlice";
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -19,20 +18,27 @@ const Header = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { cartId, items } = useSelector((state) => state.cart);
+
   useEffect(() => {
     if (!user) return;
-    if (pathname.includes("/checkout/cart/success")) return;
+    if (pathname.includes("/checkout/cart/success") || pathname === "/") return;
     dispatch(getCart(user.id));
-  }, [dispatch, user, pathname]);
+    if (!cartId) return;
+    dispatch(getItems(user.id));
+  }, [dispatch, user, pathname, cartId]);
+
   const onLogout = () => {
     dispatch(logoutUser());
     dispatch(reset());
-    navigate("/login");
+    navigate("/");
   };
+
   return (
     <header className="header">
       <div className="logo">
-        <h3 className="logo-title">E-Commerce-App</h3>
+        <Link to="/">
+          <h3 className="logo-title">E-Commerce-App</h3>
+        </Link>
       </div>
       <nav className="navbar">
         <ul className="navlist">

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { getCartProducts } from "../API/getCartProducts";
 import { reset } from "../features/cart/cartSlice";
 import { createOrder } from "../features/orders/ordersSlice";
-import "./StripeSuccess.css";
 
 const StripeSuccess = () => {
   const { cartId } = useSelector((state) => state.cart);

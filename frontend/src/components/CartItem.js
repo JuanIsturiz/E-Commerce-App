@@ -1,7 +1,6 @@
 import { FaShoppingCart } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { deleteItems } from "../features/cart/cartSlice";
-import "./CartItem.css";
 
 const CartItem = ({ item, cartId, onDelete }) => {
   const dispatch = useDispatch();

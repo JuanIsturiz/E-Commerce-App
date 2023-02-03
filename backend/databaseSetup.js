@@ -4,11 +4,12 @@ const { DB } = require("./config");
 (async () => {
   const createUsersTb = `
     CREATE TABLE IF NOT EXISTS users (
-      id          BIGSERIAL    PRIMARY KEY NOT NULL,
-      email       VARCHAR(50) NOT NULL,
-      password    TEXT NOT NULL,
+      id          BIGSERIAL     PRIMARY KEY NOT NULL,
+      email       VARCHAR(50)   NOT NULL,
+      password    TEXT,
       first_name  VARCHAR(50),
-      last_name   VARCHAR(50)
+      last_name   VARCHAR(50),
+      google_id   TEXT
   );
 `;
 
@@ -26,7 +27,8 @@ const { DB } = require("./config");
       name        VARCHAR(50),
       stock_qty   INT,
       description VARCHAR(50),
-      price       MONEY
+      price       MONEY,
+      image       TEXT
   );
 `;
 
@@ -49,7 +51,7 @@ const { DB } = require("./config");
       price         MONEY,
       order_id      INT,
       product_id    INT,
-      FOREIGN KEY (order_id) REFERENCES orders(id),
+      FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
       FOREIGN KEY (product_id) REFERENCES products(id)
   );
 `;

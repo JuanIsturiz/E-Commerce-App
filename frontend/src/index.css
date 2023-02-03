@@ -10,3 +10,501 @@
 html {
   font-family: 'Poppins', sans-serif;
 }
+
+/*--------------------------------------- App ---------------------------------------*/
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+/*------------------------------------- Homepage -------------------------------------*/
+.heading h2 {
+  font-size: 1.5rem;
+  color: #666;
+}
+
+.content {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.homepage-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.option {
+  padding: .5rem;
+  border: .15rem solid #ccc;
+  border-radius: .25rem;
+}
+
+.option div {
+  cursor: pointer;
+  padding: 1rem 2rem;
+  background-color: #eee;
+  text-align: center;
+  border-radius: .25rem;
+}
+
+.option div:hover {
+  background-color: #ccc;
+}
+
+.option h3 {
+  margin-bottom: 1rem;
+}
+
+.option div svg {
+  color: #222;
+  font-size: 5rem;
+}
+
+.log {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/*------------------------------------- Cart -------------------------------------*/
+#sorry {
+  text-align: center;
+}
+
+.items-summary {
+  display: grid;
+  grid: 1fr / 2fr 1fr;
+  gap: 1rem;
+}
+
+.summary {
+  height: 9rem;
+  padding: .5rem;
+  border: .2rem solid #ccc;
+  border-radius: .25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.summary hr {
+  margin-bottom: .5rem;
+}
+
+.summary div h4 {
+  color: rgb(150, 35, 35);
+  margin-bottom: .25rem;
+}
+
+.summary div button {
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  width: 99%;
+  color: #222;
+  background-color: rgb(193, 255, 100);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: .5rem 0;
+  border: .15rem solid rgb(88, 131, 24);
+  border-radius: .25rem;
+}
+
+/*---------------------------------- Login / Register ---------------------------------*/
+.heading {
+  font-size: 1.75rem;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.heading h1 {
+  color: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+}
+
+.form {
+  font-size: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form {
+  margin: 0 auto;
+  width: 25rem;
+}
+
+.form-group {
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: .5rem;
+}
+
+.form-group input {
+  font-size: 1rem;
+  padding: .25rem;
+}
+
+form button {
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: block;
+  margin: 0 auto;
+  padding: .5rem 1rem;
+  background-color: #111;
+  color: #fff;
+  border: none;
+  border-radius: .15rem;
+}
+
+form button:hover {
+  background-color: #222;
+}
+
+#google {
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 auto;
+  padding: .5rem;
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+/*------------------------------------- NotFound -------------------------------------*/
+.return {
+  display: flex;
+  justify-content: center;
+}
+
+#return-btn {
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: .5rem;
+  border: .1rem solid #333;
+  border-radius: .25rem;
+}
+
+#return-btn:hover {
+  background-color: #d9d9d9;
+}
+
+/*------------------------------------- Orders -------------------------------------*/
+/*------------------------------------- Products -------------------------------------*/
+
+/*----------------------------------- StripeSuccess -----------------------------------*/
+.success {
+  margin-top: 3rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.success button {
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 1.15rem;
+  font-weight: 500;
+  padding: .5rem;
+  border: .15rem solid #ccc;
+  border-radius: .25rem;
+}
+
+.success button:hover {
+  background-color: #eee;
+}
+
+/*----------------------------------- UserDashboard -----------------------------------*/
+
+/*----------------------------------- CartItem -----------------------------------*/
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eee;
+  padding: .5rem;
+  margin-bottom: 1rem;
+  border: .15rem solid #bbb;
+  border-radius: .25rem;
+}
+
+.text-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.info {
+  margin-bottom: 1rem;
+}
+
+.cart-item .image img {
+  width: 10rem;
+}
+
+.cart-item button {
+  cursor: pointer;
+  font-size: 1.15rem;
+  color: #222;
+  background-color: #ccc;
+  width: 12rem;
+  padding: .25rem;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+}
+
+.cart-item button:hover {
+  scale: .98;
+}
+
+.cart-item button:active {
+  scale: 1;
+}
+
+/*----------------------------------- Header -----------------------------------*/
+.header {
+  color: #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: .15rem #ddd solid;
+}
+
+.logo {
+  margin-left: 1.5rem;
+}
+
+.logo-title {
+  font-size: 1.5rem;
+}
+
+.navlist {
+  font-size: 1.25rem;
+  display: flex;
+  list-style: none;
+  justify-content: center;
+}
+
+.link {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+}
+
+.navlist a {
+  color: #222;
+  text-decoration: none;
+}
+
+.link>div {
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+}
+
+.list-item:hover {
+  background-color: #ddd;
+}
+
+/*----------------------------------- OrderItem -----------------------------------*/
+.order-item {
+  margin: 0 auto;
+  width: 60%;
+  margin-bottom: 1.25rem;
+  padding: .5rem;
+  border: .15rem solid #000;
+  border-radius: .25rem;
+}
+
+.date-status {
+  display: flex;
+  justify-content: space-between;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.status div {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 100%;
+}
+
+.products-info {
+  margin-top: .75rem;
+}
+
+.products-info hr {
+  margin-bottom: .5rem;
+}
+
+.products-info>div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: .5rem;
+}
+
+.products-info>div>div {
+  background-color: #d9d9d9;
+  padding: .25rem .5rem;
+  border-radius: .25rem;
+}
+
+.order-item button {
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: rgb(255, 125, 125);
+  width: 100%;
+  height: 3rem;
+  margin-top: .25rem;
+  border: none;
+  border-radius: .25rem;
+}
+
+.order-item button:hover {
+  background-color: rgb(255, 150, 150);
+}
+
+/*----------------------------------- Product -----------------------------------*/
+.product {
+  background-color: #eee;
+  padding: 1rem;
+  border-radius: .25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+svg {
+  pointer-events: none;
+}
+
+.product h3 {
+  margin-bottom: .25rem !important;
+}
+
+.product span {
+  font-weight: 600;
+}
+
+.product p::first-letter {
+  text-transform: capitalize;
+}
+
+.product p:nth-child(4) {
+  margin-bottom: 1rem;
+}
+
+.cart-info {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+
+.image {
+  display: grid;
+  place-items: center;
+  margin-bottom: .5rem;
+}
+
+.image img {
+  border: .15rem solid #777;
+  width: 80%;
+}
+
+.product button {
+  padding: .25rem;
+  background-color: #ddd;
+  cursor: pointer;
+  font-size: 1.15rem;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-end;
+  justify-self: flex-end;
+  gap: .25rem;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.quantity>* {
+  font-size: 1.75rem;
+}
+
+.quantity button {
+  font-size: 1.75rem;
+  padding: 0;
+  border-radius: 100%;
+}
+
+.arrows {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+.product button:hover {
+  background-color: #ccc;
+}
+
+/*----------------------------------- ProductList -----------------------------------*/
+.products h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.product-list {
+  display: grid;
+  /* add minmax */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media screen and (max-width: 925px) {
+  html {
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 645px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  html {
+    font-size: 7px;
+  }
+}

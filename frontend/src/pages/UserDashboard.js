@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ProductList from "../components/ProductList";
 import { getItems } from "../features/cart/cartSlice";
-import "./UserDashboard.css";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
@@ -27,9 +25,7 @@ const UserDashboard = () => {
         <section className="heading">
           <h1>Dashboard</h1>
         </section>
-        <section className="content">
-          <ProductList />
-        </section>
+        <section className="content"></section>
       </div>
     </>
   );

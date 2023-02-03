@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser, reset } from "../features/auth/authSlice";
 import { getCart } from "../features/cart/cartSlice";
-import "./Login.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({
