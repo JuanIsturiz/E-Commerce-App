@@ -26,10 +26,20 @@ const logoutUser = async () => {
   await axios.get(`${API_URL}/logout`);
 };
 
+const updatePassword = async (info) => {
+  const { userId, passwords } = info;
+  const response = await axios.put(
+    `${API_URL}/users/${userId}/passwords`,
+    passwords
+  );
+  return await response.data;
+};
+
 const authService = {
   createUser,
   loginUser,
   logoutUser,
+  updatePassword,
 };
 
 export default authService;

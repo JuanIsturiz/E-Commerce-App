@@ -35,9 +35,8 @@ exports.registerUser = asyncHandler(async (req, res) => {
       [email]
     );
     if (rowCount > 0) {
-      res.redirect("/register");
-      console.log("Email already taken.");
-      return;
+      res.status(401);
+      throw new Error("Email already taken.");
     }
 
     const salt = await bcrypt.genSalt(10);

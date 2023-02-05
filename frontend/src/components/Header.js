@@ -51,7 +51,7 @@ const Header = () => {
             <Link className="link" to={user ? `/cart/${cartId}` : "/login"}>
               <FaShoppingCart
                 style={{
-                  fill: !!items.length ? "red" : "black",
+                  fill: !!items.length ? "rgb(150, 35, 35)" : "#222",
                 }}
               />{" "}
               Cart

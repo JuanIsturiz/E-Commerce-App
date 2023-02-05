@@ -32,6 +32,7 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const userLog = await dispatch(loginUser(formData));
+    if (userLog.error) return;
     dispatch(getCart(userLog.payload.id));
   };
 
@@ -73,12 +74,12 @@ const Login = () => {
           </div>
           <button type="submit">Log In</button>
         </form>
-        <a href="http://localhost:5000/google">
-          <button id="google">
+        <div id="google">
+          <a href="http://localhost:5000/google">
             Log in with Google
             <FaGoogle />
-          </button>
-        </a>
+          </a>
+        </div>
       </section>
     </>
   );

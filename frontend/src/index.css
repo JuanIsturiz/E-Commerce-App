@@ -103,12 +103,15 @@ a {
   cursor: pointer;
   width: 99%;
   color: #222;
-  background-color: rgb(193, 255, 100);
   font-size: 1rem;
   font-weight: 700;
   padding: .5rem 0;
-  border: .15rem solid rgb(88, 131, 24);
+  border: .15rem solid #ddd;
   border-radius: .25rem;
+}
+
+.summary div button:hover {
+  background-color: #ccc;
 }
 
 /*---------------------------------- Login / Register ---------------------------------*/
@@ -169,13 +172,25 @@ form button:hover {
 #google {
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: center;
   margin: 0 auto;
   padding: .5rem;
+  border: .15rem solid #333;
+  background-color: #eee;
+  border-radius: .25rem;
+  gap: .25rem;
+}
+
+#google a {
+  color: #222;
   display: flex;
   align-items: center;
-  gap: .25rem;
+  gap: .5rem;
+}
+
+#google:hover {
+  background-color: #ddd;
 }
 
 /*------------------------------------- NotFound -------------------------------------*/
@@ -227,6 +242,70 @@ form button:hover {
 }
 
 /*----------------------------------- UserDashboard -----------------------------------*/
+
+.profile {
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  width: 50%;
+}
+
+.profile h3 {
+  text-align: center;
+}
+
+.profile hr {
+  margin-bottom: .5rem;
+}
+
+.profile strong {
+  float: right;
+}
+
+.profile h4 {
+  display: inline;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.profile h4:hover {
+  color: #777
+}
+
+.pass {
+  display: flex;
+  align-items: center;
+}
+
+.pass input {
+  width: 90%;
+}
+
+.pass svg {
+  margin-left: .5rem;
+  font-size: 1.5rem;
+}
+
+.transactions {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.transactions h3 {
+  text-align: center;
+}
+
+.transactions strong {
+  float: right;
+}
+
+.alert {
+  margin-top: .75rem;
+}
+
+.err {
+  color: rgb(150, 35, 35);
+}
+
 
 /*----------------------------------- CartItem -----------------------------------*/
 .cart-item {
@@ -439,11 +518,12 @@ svg {
 }
 
 .product button {
-  padding: .25rem;
+  padding: .35rem;
   background-color: #ddd;
   cursor: pointer;
   font-size: 1.15rem;
   border: none;
+  border-radius: .25rem;
   display: flex;
   justify-content: center;
   align-items: center;
