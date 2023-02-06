@@ -116,7 +116,7 @@ const UserDashboard = () => {
           <h2>Quick summary of the user profile and transactions</h2>
         </section>
         <section className="content">
-          <div className="profile">
+          <div className="profile sub-cont">
             <h3>Profile</h3>
             <p>
               First name: <strong>{user.first}</strong>
@@ -171,7 +171,7 @@ const UserDashboard = () => {
               </form>
             )}
           </div>
-          <div className="transactions">
+          <div className="transactions sub-cont">
             <h3>Transactions</h3>
             <p>
               Cart ID: <strong>{cartId ? cartId : "No Cart Assigned"}</strong>

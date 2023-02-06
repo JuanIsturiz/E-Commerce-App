@@ -46,8 +46,7 @@ const Product = ({ info }) => {
       navigate("/login");
       return;
     }
-    if (inCart) return;
-
+    if (inCart || stock_qty === 0) return;
     if (cartId) {
       dispatch(addItems({ quantity, userId: user.id, productId: id, cartId }));
       return;
@@ -87,7 +86,7 @@ const Product = ({ info }) => {
         </div>
       )}
       <div className="cart-info">
-        {!inCart && (
+        {stock_qty !== 0 && !inCart && (
           <div className="quantity">
             <span>{quantity} </span>
             <div className="arrows">
@@ -104,7 +103,7 @@ const Product = ({ info }) => {
           <button
             onClick={onCartClick}
             id="cart-btn"
-            style={{ opacity: inCart ? 0.7 : 1 }}
+            style={{ opacity: inCart || stock_qty === 0 ? 0.7 : 1 }}
           >
             {!inCart ? "Add to cart" : "Item already in cart"}{" "}
             <FaShoppingCart />

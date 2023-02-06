@@ -7,10 +7,8 @@ const indexRouter = require("express").Router(),
   ordersRouter = require("./orders"),
   productsRouter = require("./products"),
   checkoutRouter = require("./checkout"),
-  logoutRouter = require("./logout");
-
-const { isAuth, isNotAuth } = require("../middlewares/authentication");
-const googleRouter = require("./google");
+  logoutRouter = require("./logout"),
+  googleRouter = require("./google");
 
 //routes setup
 indexRouter.use("/", homeRouter);

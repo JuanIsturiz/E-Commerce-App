@@ -1,19 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const pool = require("../db/dbConfig");
 
-// @desc    Get carts data
-// @route   GET /cart
-// @access  Private
-exports.getCarts = asyncHandler(async (req, res) => {
-  try {
-    const carts = await pool.query("SELECT * FROM carts");
-    res.send(carts.rows);
-  } catch (err) {
-    res.status(500);
-    throw new Error(err.message);
-  }
-});
-
 // @desc    Get cart data by id
 // @route   GET /cart/:userId
 // @access  Private
@@ -77,20 +64,6 @@ exports.addItemToCart = asyncHandler(async (req, res) => {
       [quantity, modified, userId, productId, cartId]
     );
     res.send(newItem.rows[0]);
-  } catch (err) {
-    res.status(500);
-    throw new Error(err.message);
-  }
-});
-
-// @desc    Delete cart
-// @route   DELETE /cart/:cartId
-// @access  Private
-exports.removeCart = asyncHandler(async (req, res) => {
-  const { cartId } = req.params;
-  try {
-    await pool.query("DELETE FROM carts WHERE id = $1", [cartId]);
-    res.send(`Deleted cart with ID: ${cartId}`);
   } catch (err) {
     res.status(500);
     throw new Error(err.message);

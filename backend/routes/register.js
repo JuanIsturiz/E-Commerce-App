@@ -3,10 +3,9 @@ const {
   getRegister,
   registerUser,
 } = require("../controllers/registerController");
-const { isAuth } = require("../middlewares/authentication");
 
 //main register endpoint
-registerRouter.get("/", isAuth, getRegister);
+registerRouter.get("/", getRegister);
 
 //adds user to database
 registerRouter.post("/", registerUser);

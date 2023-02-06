@@ -118,7 +118,7 @@ a {
   background-color: #ccc;
 }
 
-/*---------------------------------- Login / Register ---------------------------------*/
+/*-------------------------------- Login / Register -------------------------------*/
 .heading {
   font-size: 1.75rem;
   margin: .9rem 0;
@@ -217,10 +217,7 @@ form button:hover {
   background-color: #d9d9d9;
 }
 
-/*------------------------------------- Orders -------------------------------------*/
-/*------------------------------------- Products -------------------------------------*/
-
-/*----------------------------------- StripeSuccess -----------------------------------*/
+/*--------------------------------- StripeSuccess ---------------------------------*/
 .success {
   margin-top: 3rem;
   text-align: center;
@@ -247,22 +244,22 @@ form button:hover {
 
 /*---------------------------------- UserDashboard ---------------------------------*/
 
-.profile {
+.sub-cont {
   margin: 0 auto;
   margin-bottom: 1rem;
   width: 50%;
 }
 
-.profile h3 {
+.sub-cont h3 {
   text-align: center;
+}
+
+.sub-cont strong {
+  float: right;
 }
 
 .profile hr {
   margin-bottom: .5rem;
-}
-
-.profile strong {
-  float: right;
 }
 
 .profile h4 {
@@ -287,20 +284,6 @@ form button:hover {
 .pass svg {
   margin-left: .5rem;
   font-size: 1.5rem;
-}
-
-.transactions {
-  margin: 0 auto;
-  width: 50%;
-  margin-bottom: .5rem;
-}
-
-.transactions h3 {
-  text-align: center;
-}
-
-.transactions strong {
-  float: right;
 }
 
 .alert {
