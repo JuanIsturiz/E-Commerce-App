@@ -11,6 +11,10 @@ html {
   font-family: 'Poppins', sans-serif;
 }
 
+body {
+  margin-bottom: .5rem;
+}
+
 /*--------------------------------------- App ---------------------------------------*/
 
 a {
@@ -117,7 +121,7 @@ a {
 /*---------------------------------- Login / Register ---------------------------------*/
 .heading {
   font-size: 1.75rem;
-  margin: 1.5rem 0;
+  margin: .9rem 0;
   text-align: center;
 }
 
@@ -193,7 +197,7 @@ form button:hover {
   background-color: #ddd;
 }
 
-/*------------------------------------- NotFound -------------------------------------*/
+/*------------------------------------ NotFound ------------------------------------*/
 .return {
   display: flex;
   justify-content: center;
@@ -241,7 +245,7 @@ form button:hover {
   background-color: #eee;
 }
 
-/*----------------------------------- UserDashboard -----------------------------------*/
+/*---------------------------------- UserDashboard ---------------------------------*/
 
 .profile {
   margin: 0 auto;
@@ -288,6 +292,7 @@ form button:hover {
 .transactions {
   margin: 0 auto;
   width: 50%;
+  margin-bottom: .5rem;
 }
 
 .transactions h3 {
@@ -306,6 +311,26 @@ form button:hover {
   color: rgb(150, 35, 35);
 }
 
+.total-orders {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.color-qty {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  gap: .25rem;
+}
+
+.color-qty div {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 100%;
+}
 
 /*----------------------------------- CartItem -----------------------------------*/
 .cart-item {
@@ -380,7 +405,7 @@ form button:hover {
 }
 
 .link {
-  padding: 1rem;
+  padding: .75rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -514,7 +539,7 @@ svg {
 
 .image img {
   border: .15rem solid #777;
-  width: 80%;
+  width: 75%;
 }
 
 .product button {
@@ -571,6 +596,40 @@ svg {
   gap: 1rem;
 }
 
+/* ---------------------------------- Spinner ------------------------------------- */
+.loadingSpinnerContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingSpinner {
+  width: 64px;
+  height: 64px;
+  border: 8px solid;
+  border-color: #000 transparent #555 transparent;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------------------------------- @medias ------------------------------------- */
 @media screen and (max-width: 925px) {
   html {
     font-size: 11px;

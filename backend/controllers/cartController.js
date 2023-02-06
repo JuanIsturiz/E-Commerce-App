@@ -24,7 +24,7 @@ exports.getCartById = asyncHandler(async (req, res) => {
       "SELECT * FROM cart_items WHERE user_id = $1",
       [userId]
     );
-    res.send(cart.rows);
+    res.json({ cartRows: cart.rows });
   } catch (err) {
     res.status(500);
     throw new Error(err.message);

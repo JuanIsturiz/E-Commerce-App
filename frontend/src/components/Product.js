@@ -48,12 +48,10 @@ const Product = ({ info }) => {
     if (inCart) return;
 
     if (cartId) {
-      console.log("cartId: " + cartId + " no need to add a new one");
       dispatch(addItems({ quantity, userId: user.id, productId: id, cartId }));
       return;
     } else {
       const cart = await dispatch(createCart(user.id));
-      console.log(`created new cart with id: ${cart.payload}`);
       dispatch(
         addItems({
           quantity,

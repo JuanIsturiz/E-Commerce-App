@@ -23,4 +23,5 @@ export const stripeCheckout = async (cartId, items) => {
   if (response.data.url) {
     window.location.assign(response.data.url);
   }
+  return await response.data;
 };

@@ -4,21 +4,27 @@ import { useParams } from "react-router-dom";
 import { getCartProducts } from "../API/getCartProducts";
 import { stripeCheckout } from "../API/Stripe";
 import CartItem from "../components/CartItem";
+import Spinner from "../components/Spinner";
 import { getItems } from "../features/cart/cartSlice";
 
 const Cart = () => {
   const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingStripe, setIsLoadingStripe] = useState(false);
 
   const dispatch = useDispatch();
   const { cartId } = useParams();
   const { user } = useSelector((state) => state.auth);
+
   useEffect(() => {
     if (cartId === "null") {
       return;
     }
+    setIsLoading(true);
     dispatch(getItems(user.id));
     getCartProducts(cartId).then(({ products }) => {
       setItems(products);
+      setIsLoading(false);
     });
   }, [cartId, dispatch, user]);
 
@@ -27,14 +33,22 @@ const Cart = () => {
   };
 
   const onCheckout = () => {
-    stripeCheckout(cartId, items);
+    setIsLoadingStripe(true);
+    stripeCheckout(cartId, items).then((res) => {
+      setIsLoadingStripe(false);
+    });
   };
+
+  if (isLoading || isLoadingStripe) {
+    return <Spinner />;
+  }
 
   return (
     <>
       <div className="main">
         <section className="heading">
           <h1>Cart</h1>
+          <h2>Manage and see your cart information here</h2>
         </section>
         <section className="content">
           {!items.length ? (

@@ -127,7 +127,7 @@ export const cartSlice = createSlice({
       .addCase(getItems.fulfilled, (state, action) => {
         state.isSuccess = true;
         state.isLoading = false;
-        state.items = action.payload;
+        state.items = action.payload.cartRows;
       })
       .addCase(getItems.rejected, (state, action) => {
         state.isLoading = false;

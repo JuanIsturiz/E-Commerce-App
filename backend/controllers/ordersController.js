@@ -87,7 +87,7 @@ exports.getOrdersByUser = asyncHandler(async (req, res) => {
   const { userId } = req.params;
   try {
     const ordersQuery = await pool.query(
-      "SELECT * FROM orders WHERE user_id = $1",
+      "SELECT * FROM orders WHERE user_id = $1 ORDER BY deliver_date ASC",
       [userId]
     );
     const orders = ordersQuery.rows;

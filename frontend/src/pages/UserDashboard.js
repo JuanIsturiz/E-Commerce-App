@@ -2,14 +2,18 @@ import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
 import { updatePassword } from "../features/auth/authSlice";
 import { getItems } from "../features/cart/cartSlice";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { user, isLoading: isLoadingUser } = useSelector((state) => state.auth);
   const { cartId } = useSelector((state) => state.cart);
+  const { orders, isLoading: isLoadingOrder } = useSelector(
+    (state) => state.orders
+  );
 
   const [passwords, setPasswords] = useState({
     password: {
@@ -100,6 +104,10 @@ const UserDashboard = () => {
     dispatch(getItems(user.id));
   }, [user, cartId, navigate, dispatch]);
 
+  if (isLoadingUser || isLoadingOrder) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <div className="main">
@@ -168,6 +176,33 @@ const UserDashboard = () => {
             <p>
               Cart ID: <strong>{cartId ? cartId : "No Cart Assigned"}</strong>
             </p>
+            <hr />
+            <p>Orders:</p>
+            <div className="total-orders">
+              <h5>Pending: </h5>
+              <div className="color-qty">
+                <div style={{ backgroundColor: "orange" }}></div>
+                <p>{orders.filter((o) => o.status === "Pending").length}</p>
+              </div>
+            </div>
+            <div className="total-orders">
+              <h5>Success: </h5>
+              <div className="color-qty">
+                <div style={{ backgroundColor: "green" }}></div>
+                <span>
+                  {orders.filter((o) => o.status === "Success").length}
+                </span>
+              </div>
+            </div>
+            <div className="total-orders">
+              <h5>Cancelled: </h5>
+              <div className="color-qty">
+                <div style={{ backgroundColor: "red" }}></div>
+                <span>
+                  {orders.filter((o) => o.status === "Cancelled").length}
+                </span>
+              </div>
+            </div>
             <hr />
           </div>
         </section>

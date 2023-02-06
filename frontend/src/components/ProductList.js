@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../features/products/productsSlice";
 import Product from "./Product";
+import Spinner from "./Spinner";
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const ProductList = () => {
   }, [isSuccess, products, dispatch]);
 
   if (isLoading) {
-    return <h3>Loading...</h3>;
+    return <Spinner />;
   }
 
   return (

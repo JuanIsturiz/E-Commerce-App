@@ -4,13 +4,12 @@ const API_URL = "http://localhost:5000";
 
 const getUserCart = async (userId) => {
   const response = await axios.get(`${API_URL}/cart/${userId}`);
-
-  const check = await response.data.length;
-
+  const { cartRows } = await response.data;
+  const check = cartRows.length;
   if (!check) {
     return null;
   } else {
-    const cartId = await response.data[0].cart_id;
+    const cartId = cartRows[0].cart_id;
     localStorage.setItem("cartId", JSON.stringify(cartId));
     return cartId;
   }

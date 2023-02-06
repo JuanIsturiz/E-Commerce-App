@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { FaGoogle, FaUser } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
 import { loginUser, reset } from "../features/auth/authSlice";
-import { getCart } from "../features/cart/cartSlice";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -29,15 +29,13 @@ const Login = () => {
   const onChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    const userLog = await dispatch(loginUser(formData));
-    if (userLog.error) return;
-    dispatch(getCart(userLog.payload.id));
+    dispatch(loginUser(formData));
   };
 
   if (isLoading) {
-    return <h3>Loading...</h3>;
+    return <Spinner />;
   }
 
   return (
@@ -47,7 +45,6 @@ const Login = () => {
           <FaUser /> Log In
         </h1>
       </section>
-      {isError && message}
       <section className="form">
         <form onSubmit={onSubmit}>
           <div className="form-group">
@@ -80,6 +77,7 @@ const Login = () => {
             <FaGoogle />
           </a>
         </div>
+        {isError && <h3 className="alert err"> - {message}</h3>}
       </section>
     </>
   );

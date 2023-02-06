@@ -1,4 +1,4 @@
-//todo add user dashboard cart info, orders and total status
+//todo add loading spinner to pages
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";

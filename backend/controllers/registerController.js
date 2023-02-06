@@ -46,9 +46,6 @@ exports.registerUser = asyncHandler(async (req, res) => {
       "INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING *",
       [email, hashedPass, first, last]
     );
-    console.log(
-      `user created successfully with ID: ${rows[0].id} and USERNAME: ${rows[0].email}`
-    );
     const user = rows[0];
     res.status(201).json({
       id: user.id,
