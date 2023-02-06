@@ -1,5 +1,6 @@
 const { Client } = require("pg");
 const { DB } = require("./config");
+const bcrypt = require("bcrypt");
 
 (async () => {
   const createUsersTb = `
@@ -69,13 +70,36 @@ const { DB } = require("./config");
       FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE
   );
 `;
+
+  const adminPassword = "admin";
+
+  const salt = await bcrypt.genSalt(10);
+
+  const hashedPassword = await bcrypt.hash(adminPassword, salt);
+
+  const addAdminUser = `
+  INSERT INTO users (email, password, first_name, last_name)
+    VALUES ('admin@admin.com', $1, 'admin', 'admin');
+`;
+
+  const addSampleProducts = `
+  INSERT INTO products (name, stock_qty, description, price)
+    VALUES ('PS4', 40, 'sony gaming console', 399.99);
+  INSERT INTO products (name, stock_qty, description, price)
+    VALUES ('Slayer Shorts', 50, 'original slayer merch', 24.99);
+  INSERT INTO products (name, stock_qty, description, price)
+    VALUES ('E Drum Kit', 20, 'roland electric drum kit', 998.99);
+  INSERT INTO products (name, stock_qty, description, price)
+    VALUES ('iPhone 13', 30, 'original iphone 13 from apple', 799.99);
+`;
+
   try {
     const db = new Client({
-      user: DB.USER,
-      host: DB.HOST,
-      database: DB.NAME,
-      password: DB.PASSWORD,
-      port: DB.PORT,
+      user: DB.PGUSER,
+      host: DB.PGHOST,
+      database: DB.PGNAME,
+      password: DB.PGPASSWORD,
+      port: DB.PGPORT,
     });
 
     await db.connect();
@@ -85,6 +109,8 @@ const { DB } = require("./config");
     await db.query(createOrdersTb);
     await db.query(createOrderItemTb);
     await db.query(createCartItemsTb);
+    await db.query(addAdminUser, [hashedPassword]);
+    await db.query(addSampleProducts);
     await db.end();
   } catch (err) {
     throw err;

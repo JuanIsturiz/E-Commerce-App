@@ -52,7 +52,7 @@ const Cart = () => {
         </section>
         <section className="content">
           {!items.length ? (
-            <h4 id="sorry">
+            <h4 className="sorry">
               Sorry{" "}
               <span style={{ textTransform: "capitalize" }}>{user.first}</span>,
               your cart is empty, please add some product first.

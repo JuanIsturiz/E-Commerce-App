@@ -50,7 +50,7 @@ export const productsSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.products = null;
+        state.products = [];
       });
   },
 });

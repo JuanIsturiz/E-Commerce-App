@@ -6,28 +6,35 @@ import Spinner from "./Spinner";
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const { products, isError, isSuccess, isLoading, message } = useSelector(
+  const { products, isError, isSuccess, isLoading } = useSelector(
     (state) => state.products
   );
   useEffect(() => {
-    if (isSuccess || products.length) {
+    if (isSuccess || products.length || isError) {
       return;
     }
     dispatch(getProducts());
-  }, [isSuccess, products, dispatch]);
+  }, [isSuccess, products, dispatch, isError]);
 
   if (isLoading) {
     return <Spinner />;
   }
 
   return (
-    <div className="products">
-      {isError && <h3 style={{ color: "red" }}>{message}</h3>}
-      <div className="product-list">
-        {products.length &&
-          products.map((p) => <Product key={p.id} info={p} />)}
-      </div>
-    </div>
+    <>
+      {!products.length ? (
+        <h4 className="sorry">
+          Sorry there are no products available for you right now.
+        </h4>
+      ) : (
+        <div className="products">
+          <div className="product-list">
+            {products.length &&
+              products.map((p) => <Product key={p.id} info={p} />)}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

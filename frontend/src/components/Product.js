@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import {
   FaArrowAltCircleDown,
   FaArrowAltCircleUp,
+  FaBox,
   FaShoppingCart,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -76,9 +77,15 @@ const Product = ({ info }) => {
           <span>{!!stock_qty ? stock_qty : "Not Available"}</span>
         </p>
       </div>
-      <div className="image">
-        <img src={image} alt={name} />
-      </div>
+      {image ? (
+        <div className="image">
+          <img src={image} alt={name} />
+        </div>
+      ) : (
+        <div className="product-sample">
+          <FaBox />
+        </div>
+      )}
       <div className="cart-info">
         {!inCart && (
           <div className="quantity">

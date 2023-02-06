@@ -73,7 +73,7 @@ a {
 }
 
 /*------------------------------------- Cart -------------------------------------*/
-#sorry {
+.sorry {
   text-align: center;
 }
 
@@ -541,6 +541,22 @@ svg {
   border: .15rem solid #777;
   width: 75%;
 }
+
+.product-sample {
+  background-color: #fff;
+  width: 10rem;
+  height: 10rem;
+  margin: .5rem auto;
+  display: grid;
+  place-items: center;
+  border: .15rem solid #777;
+}
+
+.product-sample svg {
+  font-size: 5rem;
+  color: #222;
+}
+
 
 .product button {
   padding: .35rem;

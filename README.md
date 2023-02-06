@@ -15,7 +15,8 @@ An application where I combined my knowledge with postgres, express, react and n
 1. Run `npm install` in the root, frontend and backend directories so every dependency in the package.json file installs correctly.
 2. Pass the correct information to the .env, config, dbConfing and databaseSetup files to connect the program with a database.
 3. In the backend folder run `node databaseSetup` to create the necessary tables for the API to work with.
-4. In the root `npm run dev` to start both server and client for the app work properly.
+4. Create a [Stripe](https://stripe.com/) account, setup a company, add the respective products that will match the products in your database and update the stripe prices object in the _Stripe.js_ file located in _/frontend/src/API/Stripe.js_.
+5. In the root `npm run dev` to start both server and client for the app work properly.
 
 ## Dependencies
 
